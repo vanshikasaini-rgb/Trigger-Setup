@@ -1,0 +1,10 @@
+flask
+boto3
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
+requests
+pandas
+Pillow
+tqdm
