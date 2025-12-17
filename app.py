@@ -18,13 +18,19 @@ def health():
     return "Media Portfolio Automation is running", 200
 
 @app.route("/run", methods=["POST"])
-def run():
-    thread = threading.Thread(target=run_pipeline)
-    thread.start()
-    return jsonify({"status": "started"}), 200
+def run_pipeline():
+    print("🚀 Pipeline started")
+    try:
+        from Scripts.cli import download_and_process_uploads
+        download_and_process_uploads()
+        print("✅ Pipeline finished successfully")
+    except Exception as e:
+        print("❌ Pipeline crashed:", e)
+
 
 if __name__ == "__main__":
     import os
     
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
