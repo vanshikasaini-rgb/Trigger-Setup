@@ -9,6 +9,26 @@ from .rekog_manager import index_faces_and_record
 from .folders_manager import create_output_structure
 from .sorter import phase4_sort_uploads
 
+# ====== EXPORTABLE FUNCTIONS FOR APP.PY ======
+
+def run_full_indexing():
+    from .refs_manager import phase1_build_refs
+    from .rekog_manager import upload_refs_to_s3, index_faces_and_record
+    from .folders_manager import create_output_structure
+
+    phase1_build_refs()
+    upload_refs_to_s3()
+    index_faces_and_record(update_sheet=True)
+    create_output_structure()
+
+
+def download_and_process_uploads():
+    from .sorter import phase4_sort_uploads
+    from .reporting import append_uploaded_data
+
+    rows = phase4_sort_uploads()
+    append_uploaded_data(rows)
+
 
 def run_full_indexing():
     """
@@ -71,3 +91,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
